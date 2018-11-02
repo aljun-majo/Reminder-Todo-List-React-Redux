@@ -11,7 +11,7 @@ import 'moment-timezone';
 import { connect } from 'react-redux';
 //no need 
 //import { bindActionCreators } from 'redux';
-import { addList, deleteList } from './actions/';
+import { addList, deleteList, clearList } from './actions/';
 
 class App extends Component {
 
@@ -68,6 +68,7 @@ renderReminders = () => {
               >
                 <span> &#x2715; </span>
               </button>
+              
             </ListGroupItem>
           )
         })
@@ -112,13 +113,22 @@ renderReminders = () => {
                   })}
                 />
             </FormGroup>
-
-            <Button 
-              className="btn-success"
-              onClick={
-                () => this.addList()
-              }
-            >Todos</Button>
+            <div className="mb-3">
+              <Button 
+                className="btn btn-success"
+                onClick={
+                  () => this.addList()
+                }
+              >Add List</Button>
+            </div>        
+            <div>
+              <Button  
+                  className="btn btn-danger"
+                  onClick={() => this.props.clearList()}
+                >
+                  Clear all<span> &#x2715; </span>
+                </Button>
+            </div>
           </Form>
 
         </div>
@@ -143,4 +153,5 @@ function mapStateToProps(state) {
 
 
 //export default connect(null, mapDispatchToProps)(App);
-export default connect(mapStateToProps, { addList, deleteList })(App);
+                                          //binded functions from actions/index.js                                  
+export default connect(mapStateToProps, { addList, deleteList, clearList })(App);
